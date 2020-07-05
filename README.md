@@ -1,7 +1,7 @@
 # netbox2tf
-Export devices from netbox to terraform variables.
+Export devices from netbox to terraform variables.\
 Script gets information about devices and virtual machines from netbox and then forming a mapping variable in HCL format from template.
-The result is  exposed to scripts output and can be used in Terraform.
+The result is  exposed to scripts output and can be used in Terraform.\
 One of the usecases of this script is  PagerDuty services  and service dependencies configuration by Terraform.
 
 ### Runnig the script
