@@ -14,7 +14,7 @@ true_false = {
     'False': False
 }
 netbox_url                  = os.environ['NETBOX_URL']
-netbox_private_key          = os.environ['NETBOX_PRIVATE_KEY']
+netbox_private_key          = os.environ['NETBOX_KEY']
 netbox_token                = os.environ['NETBOX_TOKEN']
 netbox_ssl_verify           = true_false.get(os.environ.get('NETBOX_SSL_VERIFY','True'),'True')
 tf_file_template            = os.environ.get('TF_FILE_TEMPLATE','nb-template.tf.j2')
