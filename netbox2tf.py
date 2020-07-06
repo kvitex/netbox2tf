@@ -33,9 +33,7 @@ def main():
         device['device_type'] = device_type
         resource_name = re.sub('[^0-9a-zA-Z]+', '_', device['name'])
         device['tags'] = ','.join(device['tags'])
-        device['custom_fields'] = f'''<<-EOF 
-        {json.dumps(device.get('custom_fields',{}))}
-        EOF'''
+        device['custom_fields'] = json.dumps(device.get('custom_fields',{}))
         all_devices[resource_name] = device
     nb_dev = nb.dcim.devices.all()
     device_type = 'baremetal'
@@ -44,12 +42,11 @@ def main():
         device['device_type'] = device_type
         resource_name = re.sub('[^0-9a-zA-Z]+', '_', device['name'])
         device['tags'] = ','.join(device['tags'])
-        device['custom_fields'] = f'''<<-EOF 
-        {json.dumps(device.get('custom_fields',{}))}
-        EOF'''
+        device['custom_fields'] = json.dumps(device.get('custom_fields',{}))
         all_devices[resource_name] = device
     with open(tf_file_template, 'r') as read_file:
         template = Template(read_file.read())
+    template.globals['regex_search'] = re.search
     print(template.render(nbdev_tf_var_name=nbdev_tf_var_name, nb_devices=all_devices))
 
     
