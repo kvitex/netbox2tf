@@ -4,7 +4,7 @@ variable "{{ nbdev_tf_var_name }}"{
 {% for dev_key, dev_value in nb_devices.items() -%}
         {{ dev_key }} = {
     {% for prop_key, prop_value in dev_value.items() -%}
-            {% if regex_search('["\{\}]',prop_value|string) is not none  -%}
+            {% if regex_search('["\{\}\n]',prop_value|string) is not none  -%}
         {{ prop_key }} = <<-EOF
                          {{ prop_value }}
                          EOF
