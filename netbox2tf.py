@@ -25,7 +25,7 @@ def main():
     session.verify = netbox_ssl_verify
     nb = pynetbox.api(url=netbox_url, private_key=netbox_private_key, token=netbox_token)
     nb.http_session = session
-    nb_devs= nb.virtualization.virtual_machines.all()
+    nb_devs = nb.virtualization.virtual_machines.all()
     all_devices= {}
     device_type='vm'
     for nb_dev in nb_devs:
@@ -35,7 +35,7 @@ def main():
         device['tags'] = ','.join(device['tags'])
         device['custom_fields'] = json.dumps(device.get('custom_fields',{}))
         all_devices[resource_name] = device
-    nb_dev = nb.dcim.devices.all()
+    nb_devs = nb.dcim.devices.all()
     device_type = 'baremetal'
     for nb_dev in nb_devs:
         device = nb_dev.serialize()
