@@ -36,6 +36,7 @@ def main():
         resource_name = re.sub('[^0-9a-zA-Z]+', '_', device['name'])
         device['tags'] = ','.join(device['tags'])
         device['custom_fields'] = json.dumps(device.get('custom_fields',{}))
+        device['primary_ip_addr'] = None
         if device['primary_ip'] is not None:
             for ip in nb_ips:
                 if ip.id == device['primary_ip']:
