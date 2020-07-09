@@ -3,16 +3,17 @@ variable "{{ nbdev_tf_var_name }}"{
     default = {
 {% for dev_key, dev_value in nb_devices.items() -%}
         {{ dev_key }} = {
+        index = {{ loop.index }}    
     {% for prop_key, prop_value in dev_value.items() -%}
             {% if regex_search('["\{\}\n]',prop_value|string) is not none  -%}
-        {{ prop_key }} = <<-EOF
-                         {{ prop_value }}
-                         EOF
+    {{ prop_key }} = <<-EOF
+                    {{ prop_value }}
+                    EOF
             {% else -%}
     {{ prop_key }} = "{{ prop_value }}"
             {% endif -%}
-    {% endfor %}
+    {% endfor -%}
         },
-{% endfor %}
+{% endfor -%}
 }
 }
