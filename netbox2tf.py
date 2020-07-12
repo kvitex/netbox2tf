@@ -28,7 +28,7 @@ def main():
     nb.http_session = session
     nb_ips = nb.ipam.ip_addresses.all()
     nb_devs = nb.virtualization.virtual_machines.all()
-    all_devices= {}
+    all_devices= []
     device_type='VM'
     for nb_dev in nb_devs:
         device = nb_dev.serialize()
@@ -41,7 +41,8 @@ def main():
             for ip in nb_ips:
                 if ip.id == device['primary_ip']:
                     device['primary_ip_addr'] = str(ip).split('/')[0]
-        all_devices[resource_name] = device
+        device['resource_name'] = resource_name
+        all_devices.append(device)
     nb_devs = nb.dcim.devices.all()
     device_type = 'Baremetal'
     for nb_dev in nb_devs:
@@ -55,7 +56,8 @@ def main():
             for ip in nb_ips:
                 if ip.id == device['primary_ip']:
                     device['primary_ip_addr'] = str(ip).split('/')[0]
-        all_devices[resource_name] = device
+        device['resource_name'] = resource_name
+        all_devices.append(device)
     with open(tf_file_template, 'r') as read_file:
         template = Template(read_file.read())
     template.globals['regex_search'] = re.search

@@ -1,8 +1,8 @@
 variable "{{ nbdev_tf_var_name }}"{
-    type = map
-    default = {
-{% for dev_key, dev_value in nb_devices.items() -%}
-        {{ dev_key }} = {
+    type = list
+    default = [
+{% for dev_value in nb_devices -%}
+        {
         index = {{ loop.index }}    
     {% for prop_key, prop_value in dev_value.items() -%}
             {% if regex_search('["\{\}\n]',prop_value|string) is not none  -%}
@@ -15,5 +15,5 @@ variable "{{ nbdev_tf_var_name }}"{
     {% endfor -%}
         },
 {% endfor -%}
-}
+    ]
 }
